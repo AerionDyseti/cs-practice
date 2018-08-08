@@ -40,4 +40,4 @@ function FindUniqueMultipleSum(belowThis, multiplesOf) {
     return sum;
 }
 
-console.log(FindUniqueMultipleSum(1000, [3, 5]));
+console.log(FindUniqueMultipleSum(15000000, [3, 5]));
