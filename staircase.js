@@ -10,12 +10,10 @@
 const stepsAllowedForThisProblem = [1, 2, 3, 5];
 
 /**
- *
- *
  * @param {*} steps Number of steps in the staircase
  * @param {*} stepsAllowedArray An array of integers for the number of steps allowed to take.
  * @param {*} solved (optional) 2-D array representing solved values for steps-stepsAllowed.
- * @returns
+ * @returns The number of ways you canj 
  */
 function HowManyWays(steps, stepsAllowedArray, solved) {
     if (steps == 0) { return 1 }
