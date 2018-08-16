@@ -9,8 +9,8 @@ class TreeNode
     constructor(val, left, right)
     {
         this.val = val;
-        this.left = left;
-        this.right = right;
+        this.left = left || null;
+        this.right = right || null;
     }
 }
 
@@ -55,21 +55,8 @@ function deserialize(str)
 
 
 
-let tree =
-    new TreeNode('foo',
-        new TreeNode('bar',
-            new TreeNode("bop"),
-            null
-        ),
-        new TreeNode('baz',
-            null,
-            new TreeNode("mow",
-                new TreeNode("troz"),
-                null
-            )
-        )
-    );
 
-console.log(serialize(tree));
+let originalTree = new TreeNode('foo', new TreeNode('bar', new TreeNode("bop"), null), new TreeNode('baz', null, new TreeNode("mow", new TreeNode("troz"), null)));
+let rehydratedTree = deserialize(serialize(originalTree));
 
-console.log(deserialize(serialize(tree)));
+console.log(`The damn thing works: ${serialize(originalTree) == serialize(rehydratedTree)}`);
