@@ -59,4 +59,4 @@ function deserialize(str)
 let originalTree = new TreeNode('foo', new TreeNode('bar', new TreeNode("bop"), null), new TreeNode('baz', null, new TreeNode("mow", new TreeNode("troz"), null)));
 let rehydratedTree = deserialize(serialize(originalTree));
 
-console.log(`The damn thing works: ${serialize(originalTree) == serialize(rehydratedTree)}`);
+console.log(`The damn thing works: ${JSON.stringify(originalTree) === JSON.stringify(rehydratedTree)}`);

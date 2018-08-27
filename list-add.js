@@ -9,9 +9,11 @@
  * @param {Array<number>} givenArray
  * @returns
  */
-function CanMakeSum(k, nArray) {
+function CanMakeSum(k, nArray)
+{
     let needed = new Set();
-    for (let n of nArray) {
+    for (let n of nArray)
+    {
         if (needed.has(n)) { return true; }
         else { needed.add(k - n); } // Store compliment for future searches.
     }
