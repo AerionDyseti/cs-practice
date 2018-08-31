@@ -1,18 +1,25 @@
-function merge(leftArray, rightArray, sortFn) {
+function merge(leftArray, rightArray, isSortedFn) {
 
     // default sort function, but allow for extension.
-    sortFn = sortFn || ((a, b) => {
-        if (a == undefined) return false;
-        if (b == undefined) return true;
-        return a < b
-    });
+    isSorted = (isSortedFn == undefined) ?
+        ((a, b) => {
+            if (a == undefined) return false;
+            if (b == undefined) return true;
+            return a < b
+        }) :
+        ((a, b) => {
+            if (a == undefined) return false;
+            if (b == undefined) return true;
+            return isSortedFn(a, b);
+        });
+
 
     let result = [],
         leftIndex = 0,
         rightIndex = 0;
 
     while (leftIndex < leftArray.length || rightIndex < rightArray.length) {
-        if (sortFn(leftArray[leftIndex], rightArray[rightIndex])) {
+        if (isSorted(leftArray[leftIndex], rightArray[rightIndex])) {
             result.push(leftArray[leftIndex]);
             leftIndex++
         }
@@ -44,21 +51,25 @@ function mergeSort(arr, sortFn) {
 
 
 
-const intArray = [1, 2, 7, -2, 0, 0, 122];
-const stringArray = ["a", "c", "z", "xx", "xy", "aaa"];
-const testArray = [2];
-const objArray = [{ foo: 1 }, { foo: 2 }, { foo: 0 }, { foo: -22 }, { foo: 5 }];
-const objSortFn = (objA, objB) => {
-    if (objA == undefined) return false;
-    if (objB == undefined) return true;
-    return objA.foo < objB.foo;
-}
+const intArray = [6, 1, 2, 7, 0, -3];
+const stringArray = ["a", "x", "b", "dd", "ddd", "aaaa"];
+const objArray = [{ foo: 1 }, { foo: 5 }, { foo: 3 }, { foo: 0 }];
 
+const upSort = (a, b) => a < b;
+const downSort = (a, b) => a > b;
+const fooSort = (a, b) => a.foo < b.foo;
+
+const numTests = 1000000;
 let t = process.hrtime();
-for (let i = 0; i < 1000000; i++) {
-    mergeSort(intArray)
+for (let i = 0; i < numTests; i++) {
+    mergeSort(intArray);
+    mergeSort(intArray, upSort);
+    mergeSort(intArray, downSort);
     mergeSort(stringArray);
-    mergeSort(testArray);
-    mergeSort(objArray, objSortFn);
+    mergeSort(stringArray, upSort);
+    mergeSort(stringArray, downSort);
+    mergeSort(objArray, fooSort);
+
 }
-console.log(process.hrtime(t));
+t = process.hrtime(t);
+console.log(`mergeSort took ${t[0] + (t[1] / 1e9)} seconds for ${numTests} tests.`);

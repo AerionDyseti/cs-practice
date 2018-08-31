@@ -1,13 +1,6 @@
-function quickSort(arr) {
-    if (arr.constructor !== Array) {
-        console.log("This only works on arrays.");
-        return;
-    }
+function quickSort(arr, isSortedFn) {
 
-    if (arr[0] > arr[1] === undefined) {
-        console.log("This function only works on elements that can be sorted.");
-        return;
-    }
+    isSortedFn = (isSortedFn !== undefined) ? isSortedFn : (a, b) => a < b;
 
     if (arr.length <= 1)
         return arr;
@@ -15,32 +8,42 @@ function quickSort(arr) {
     let leftArray = [], rightArray = [];
 
     for (let i = 0; i < arr.length - 1; i++) {
-        let boop = arr[i] < arr[arr.length - 1];
-        if (boop) {
+        if (isSortedFn(arr[i], arr[arr.length - 1]))
             leftArray.push(arr[i]);
-        }
-        else {
+        else
             rightArray.push(arr[i]);
-        }
     }
 
-    return [...quickSort(leftArray), arr[arr.length - 1], ...quickSort(rightArray)];
+    return [
+        ...quickSort(leftArray, isSortedFn),
+        arr[arr.length - 1],
+        ...quickSort(rightArray, isSortedFn)
+    ];
+
+    // Or, more boring...
+    // return quickSort(leftArray, sortFn).concat(arr[midIndex]).concat(quickSort(rightArray, sortFn));
 
 }
 
 
+const intArray = [6, 1, 2, 7, 0, -3];
+const stringArray = ["a", "x", "b", "dd", "ddd", "aaaa"];
+const objArray = [{ foo: 1 }, { foo: 5 }, { foo: 3 }, { foo: 0 }];
 
-let arrayA = [-1, 2, 3, -5, 0];
-let arrayB = [];
-let arrayC = [1];
-let arrayD = ["A", "C", "F", "Z", "N", "A", "V"];
-let notArray = {};
-let objArray = [{ foo: "a", bar: "a" }, { foo: "b", bar: "b" }, { foo: "c", bar: "c" }];
+const upSort = (a, b) => a < b;
+const downSort = (a, b) => a > b;
+const fooSort = (a, b) => a.foo < b.foo;
 
-
-console.log(quickSort(arrayA));
-console.log(quickSort(arrayB));
-console.log(quickSort(arrayC));
-console.log(quickSort(arrayD));
-console.log(quickSort(notArray));
-console.log(quickSort(objArray));
+const numTests = 1000000;
+let t = process.hrtime();
+for (let i = 0; i < numTests; i++) {
+    quickSort(intArray);
+    quickSort(intArray, upSort);
+    quickSort(intArray, downSort);
+    quickSort(stringArray);
+    quickSort(stringArray, upSort);
+    quickSort(stringArray, downSort);
+    quickSort(objArray, fooSort);
+}
+t = process.hrtime(t);
+console.log(`Quicksort took ${t[0] + (t[1] / 1e9)} seconds for ${numTests} tests.`);

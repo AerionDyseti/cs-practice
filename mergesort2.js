@@ -4,6 +4,11 @@ function mergeSort(arr, isSortedFn) {
     if (arr.length <= 1)
         return arr;
 
+    // Default sorting.
+    if (isSortedFn === undefined) {
+        isSortedFn = (a, b) => a < b;
+    }
+
     // Otherwise, find the middle, and do recursive merge sort.
     let midIndex = Math.floor(arr.length / 2),
         lArr = arr.slice(0, midIndex),
@@ -57,8 +62,10 @@ const fooSort = (a, b) => a.foo < b.foo;
 const numTests = 1000000;
 let t = process.hrtime();
 for (let i = 0; i < numTests; i++) {
+    mergeSort(intArray);
     mergeSort(intArray, upSort);
     mergeSort(intArray, downSort);
+    mergeSort(stringArray);
     mergeSort(stringArray, upSort);
     mergeSort(stringArray, downSort);
     mergeSort(objArray, fooSort);

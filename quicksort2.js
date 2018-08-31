@@ -2,6 +2,10 @@ function quickSort(arr, isSortedFn) {
     if (arr.length <= 1)
         return arr;
 
+    if (isSortedFn === undefined) {
+        isSortedFn = (a, b) => a < b;
+    }
+
     let midIndex = Math.floor(arr.length / 2);
 
     // Median of Three approximation.
@@ -50,12 +54,13 @@ const fooSort = (a, b) => a.foo < b.foo;
 const numTests = 1000000;
 let t = process.hrtime();
 for (let i = 0; i < numTests; i++) {
+    quickSort(intArray);
     quickSort(intArray, upSort);
     quickSort(intArray, downSort);
+    quickSort(stringArray);
     quickSort(stringArray, upSort);
     quickSort(stringArray, downSort);
     quickSort(objArray, fooSort);
 }
 t = process.hrtime(t);
 console.log(`Quicksort2 took ${t[0] + (t[1] / 1e9)} seconds for ${numTests} tests.`);
-
