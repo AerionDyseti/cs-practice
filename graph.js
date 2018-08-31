@@ -1,41 +1,32 @@
-class Graph
-{
-    constructor(numVertices)
-    {
+class Graph {
+    constructor(numVertices) {
         this.numVertices = numVertices;
         this.vertexList = {};
     }
 
-    addVertex(v)
-    {
+    addVertex(v) {
         this.vertexList[v] = {};
     }
 
-    addEdge(v, w)
-    {
+    addEdge(v, w) {
         this.vertexList[v][w] = true;
     }
 
-    hasEdge(v, w)
-    {
+    hasEdge(v, w) {
         return this.vertexList[v].hasOwnProperty(w);
     }
 
-    hasPath(v, w)
-    {
+    hasPath(v, w) {
         let visited = [];
         return this.hasPathUtil(v, w, visited);
     }
 
     // DFS
-    hasPathUtil(startVertex, soughtVertex, visited)
-    {
+    hasPathUtil(startVertex, soughtVertex, visited) {
         if (startVertex == soughtVertex) return true;
         let foundPath = false;
-        for (var i in this.vertexList[startVertex])
-        {
-            if (visited[startVertex])
-            {
+        for (var i in this.vertexList[startVertex]) {
+            if (visited[startVertex]) {
                 continue;
             }
             visited[startVertex] = true;

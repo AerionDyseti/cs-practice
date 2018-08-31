@@ -45,12 +45,8 @@ function mergeSort(arr, sortFn) {
 
 
 const intArray = [1, 2, 7, -2, 0, 0, 122];
-console.log(mergeSort(intArray));
-
 const stringArray = ["a", "c", "z", "xx", "xy", "aaa"];
-console.log(mergeSort(stringArray));
-
-
+const testArray = [2];
 const objArray = [{ foo: 1 }, { foo: 2 }, { foo: 0 }, { foo: -22 }, { foo: 5 }];
 const objSortFn = (objA, objB) => {
     if (objA == undefined) return false;
@@ -58,7 +54,11 @@ const objSortFn = (objA, objB) => {
     return objA.foo < objB.foo;
 }
 
-
-console.log(mergeSort(objArray, objSortFn));
-
-
+let t = process.hrtime();
+for (let i = 0; i < 1000000; i++) {
+    mergeSort(intArray)
+    mergeSort(stringArray);
+    mergeSort(testArray);
+    mergeSort(objArray, objSortFn);
+}
+console.log(process.hrtime(t));

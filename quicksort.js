@@ -1,13 +1,10 @@
-function quickSort(arr)
-{
-    if (arr.constructor !== Array)
-    {
+function quickSort(arr) {
+    if (arr.constructor !== Array) {
         console.log("This only works on arrays.");
         return;
     }
 
-    if (arr[0] > arr[1] === undefined)
-    {
+    if (arr[0] > arr[1] === undefined) {
         console.log("This function only works on elements that can be sorted.");
         return;
     }
@@ -17,15 +14,12 @@ function quickSort(arr)
 
     let leftArray = [], rightArray = [];
 
-    for (let i = 0; i < arr.length - 1; i++)
-    {
+    for (let i = 0; i < arr.length - 1; i++) {
         let boop = arr[i] < arr[arr.length - 1];
-        if (boop)
-        {
+        if (boop) {
             leftArray.push(arr[i]);
         }
-        else
-        {
+        else {
             rightArray.push(arr[i]);
         }
     }
