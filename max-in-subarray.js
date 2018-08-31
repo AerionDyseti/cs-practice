@@ -1,15 +1,12 @@
 // Sliding Window approach. 
-function findLargestOfSubArraysSW(inputArray, subarrayLength)
-{
+function findLargestOfSubArraysSW(inputArray, subarrayLength) {
 
     let indexQueue = new Deque();
     let outputArray = [];
 
     // Handle first window.
-    for (let i = 0; i < subarrayLength; i++)
-    {
-        while (!indexQueue.isEmpty() && inputArray[i] > inputArray[indexQueue.end()])
-        {
+    for (let i = 0; i < subarrayLength; i++) {
+        while (!indexQueue.isEmpty() && inputArray[i] > inputArray[indexQueue.end()]) {
             indexQueue.popBack();
         }
         indexQueue.pushBack(i);
@@ -18,18 +15,15 @@ function findLargestOfSubArraysSW(inputArray, subarrayLength)
     outputArray.push(inputArray[indexQueue.front()]);
 
     // Handle all other windows (from inputArray[k] to inputArray[-1]  
-    for (let i = subarrayLength; i < inputArray.length; i++)
-    {
+    for (let i = subarrayLength; i < inputArray.length; i++) {
 
         // remove items not in the current window.
-        while (!indexQueue.isEmpty() && indexQueue.front() <= i - subarrayLength)
-        {
+        while (!indexQueue.isEmpty() && indexQueue.front() <= i - subarrayLength) {
             indexQueue.popFront();
         }
 
         // Remove useless elements.
-        while (!indexQueue.isEmpty() && inputArray[i] > inputArray[indexQueue.end()])
-        {
+        while (!indexQueue.isEmpty() && inputArray[i] > inputArray[indexQueue.end()]) {
             indexQueue.popBack();
         }
         indexQueue.pushBack(i);
@@ -42,10 +36,8 @@ function findLargestOfSubArraysSW(inputArray, subarrayLength)
 
 }
 
-class Deque
-{
-    constructor()
-    {
+class Deque {
+    constructor() {
         this.stack = [];
         this.end = () => this.stack[this.stack.length - 1];
         this.front = () => this.stack[0];
