@@ -3,7 +3,7 @@
 
 const OFFSET_BASIS_32 = 2166136261;
 
-class DumbMap {
+module.exports = class DumbMap {
 
     constructor() {
         this.size = 0;
@@ -65,39 +65,3 @@ class DumbMap {
     }
 
 }
-
-
-
-// TESTING
-
-let dumbMap = new DumbMap();
-let notDumbMap = {};
-
-let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-let randomCharCount;
-
-for (let i = 0; i < 10000000; i++) {
-
-    let testKey = "";
-    let testValue = "";
-
-    randomCharCount = Math.floor(Math.random() * 25);
-    for (let i = 0; i < randomCharCount; i++) {
-        testKey += possible.charAt(Math.floor(Math.random() * possible.length) + 1);
-    }
-
-    randomCharCount = Math.floor(Math.random() * 25);
-    for (let i = 0; i < randomCharCount; i++) {
-        testValue += possible.charAt(Math.floor(Math.random() * possible.length) + 1);
-    }
-
-    notDumbMap[testKey] = testValue;
-    dumbMap.add(testKey, testValue);
-}
-
-let isGood = true;
-for (let key in notDumbMap) {
-    isGood = notDumbMap[key] == dumbMap.get(key);
-}
-
-console.log("The thing worked: " + isGood);

@@ -1,4 +1,4 @@
-class Deque {
+module.exports = class Deque {
     constructor() {
         this.stack = [];
         this.end = () => this.stack[this.stack.length - 1];
