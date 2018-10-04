@@ -8,7 +8,7 @@ function getMaxProduct(arr) {
 
     for (let i = 3; i < arr.length; i++) {
 
-        let bestTwo = Math.max(1 * b, a * c, b * c);
+        let bestTwo = Math.max(a * b, a * c, b * c);
 
         if (bestTwo == a * b && a * b * arr[i] > maxProfit)
             c = arr[i];
@@ -72,12 +72,6 @@ function getMaxProductForK(arr, k) {
 
 }
 
-
-function getProductExcept(arr, excludeIndex) {
-    let product = 1;
-
-    return product;
-}
 
 
 

@@ -27,8 +27,11 @@ function findProductsExclusive(arr) {
     }
 
     // Multiple them together to get an O(n) time array of all products except for J. 
+    // Here we are using Functional, assuming we do not want to mutate the input.
     for (let j = 0; j < arr.length; j++) {
         results[j] = productsBefore[j] * productsAfter[j];
     }
+
+    return results;
 
 }
