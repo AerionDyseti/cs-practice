@@ -1,9 +1,8 @@
 
 // Convert a given number into a string.
-// Asked by Google.
+// Asked by Google in Phone Interview #1
 
-function numToString(num)
-{
+function numToString(num) {
 
     let outputString = "";
 
@@ -13,8 +12,7 @@ function numToString(num)
     if (num == 0) return "0";
     if (neg) num *= -1;
 
-    while (num !== 0)
-    {
+    while (num !== 0) {
         let currentDigit = (num % 10).toString();
         outputString = currentDigit + outputString;
         num = Math.floor(num / 10);
